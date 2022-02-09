@@ -3,7 +3,7 @@ import {
   CANVAS_FONT_PATH, 
   CANVAS_EMOJI_FONT_PATH, 
   CANVAS_FALLBACK_FONT_PATH, 
-  SERVER_URL
+  ENS_APP_URL
 }                            from './config';
 import createSVGfromTemplate from './svg-template';
 
@@ -102,7 +102,7 @@ https://en.wikipedia.org/wiki/IDN_homograph_attack';
       value: this.name_length,
     });
     this.url = this.is_normalized
-      ? `${SERVER_URL}/name/${name}`
+      ? `${ENS_APP_URL}/name/${name}`
       : null;
     this.version = version;
   }
