@@ -23,7 +23,7 @@ export const GET_DOMAINS_BY_LABELHASH = gql`
   query getDomains($tokenId: String) {
     domains(
       where: {
-        parent: "${ETH_NAMEHASH}",
+        # parent: "${ETH_NAMEHASH}",
         labelhash: $tokenId
       }
     ) {

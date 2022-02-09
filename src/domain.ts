@@ -8,6 +8,7 @@ import {
 import { Metadata } from './metadata';
 import { getAvatarImage } from './avatar';
 import { Version } from './base';
+import { SERVER_URL } from './config';
 
 const eth =
   '0x93cdeb708b7545dc668eb9280176169d1c33cfd8ed6f04690a0bcc88a93fc4ae';
@@ -83,16 +84,16 @@ export async function getDomain(
       }
     } else {
       metadata.setBackground(
-        `https://metadata.ens.domains/${networkName}/avatar/${name}`
+        `${SERVER_URL}/${networkName}/avatar/${name}`
       );
       metadata.setImage(
-        `https://metadata.ens.domains/${networkName}/${contractAddress}/${hexId}/image`
+        `${SERVER_URL}/${networkName}/${contractAddress}/${hexId}/image`
       );
     }
   }
 
   async function requestAttributes() {
-    if (parent.id === eth) {
+    if (true || parent.id === eth) {
       const { registrations } = await request(SUBGRAPH_URL, GET_REGISTRATIONS, {
         labelhash,
       });

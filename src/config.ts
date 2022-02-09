@@ -20,6 +20,7 @@ const ADDRESS_NAME_WRAPPER = process.env.ADDRESS_NAME_WRAPPER || '0x4D83cea620E3
 
 const SERVER_URL =
   ENV === 'local' ? `http://localhost:${PORT}` : `https://${HOST}`;
+const ENS_APP_URL = process.env.ENS_APP_URL || "https://app.ens.domains"
 
 export {
   ADDRESS_ETH_REGISTRAR,
@@ -32,4 +33,5 @@ export {
   IPFS_GATEWAY,
   IPNS_GATEWAY,
   SERVER_URL,
+  ENS_APP_URL
 };

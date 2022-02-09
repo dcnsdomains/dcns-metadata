@@ -6,7 +6,7 @@ import isSVG                            from 'is-svg';
 import { CID }                          from 'multiformats/cid';
 import fetch                            from 'node-fetch';
 import { BaseError }                    from './base';
-import { INFURA_API_KEY, IPFS_GATEWAY, IPNS_GATEWAY } from './config';
+import { INFURA_API_KEY, IPFS_GATEWAY, IPNS_GATEWAY, SERVER_URL } from './config';
 
 const window = new JSDOM('').window;
 const DOMPurify = createDOMPurify(window as any);
@@ -296,7 +296,7 @@ export class AvatarMetadata {
       if (this.image_url) {
         this.image = this.image_url;
       } else if (this.image_data) {
-        this.image = `https://metadata.ens.domains/${networkName}/avatar/${this.uri}`;
+        this.image = `${SERVER_URL}/${networkName}/avatar/${this.uri}`;
       } else {
         this.image = uri;
       }
