@@ -38,10 +38,11 @@ export default function (app: Express) {
           tokenId,
           version,
           false
-        );
+        ) as any;
         /* #swagger.responses[200] = { 
                description: 'Metadata object' 
         } */
+        result.image = result.image_url;
         res.json(result);
       } catch (error: any) {
         console.log('error', error);
