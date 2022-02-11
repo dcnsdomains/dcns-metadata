@@ -69,7 +69,7 @@ export default function (app: Express) {
   );
 
   app.get(
-    '/:networkName/:contractAddress(0x[a-fA-F0-9]{40})/:tokenId/image',
+    '/:networkName/:contractAddress(0x[a-fA-F0-9]{40})/:tokenId/image(.svg)?',
     /* istanbul ignore next */
     async function (req, res) {
       // #swagger.description = 'ENS NFT image'
