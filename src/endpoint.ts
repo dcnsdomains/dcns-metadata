@@ -43,6 +43,7 @@ export default function (app: Express) {
                description: 'Metadata object' 
         } */
         result.image = result.image_url;
+        delete result.image_url;
         res.json(result);
       } catch (error: any) {
         console.log('error', error);
