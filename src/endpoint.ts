@@ -173,13 +173,20 @@ export default function (app: Express) {
         });
       }
     } catch (error: any) {
+      if (error instanceof ResolverNotFound ||
+          error instanceof TextRecordNotFound) {
+        res.status(404).json({
+          message: error.message,
+        });
+
+        return;
+      }
+
       const errCode = (error?.code && Number(error.code)) || 500;
       if (
         error instanceof FetchError ||
         error instanceof NFTURIParsingError ||
-        error instanceof ResolverNotFound ||
         error instanceof RetrieveURIFailed ||
-        error instanceof TextRecordNotFound ||
         error instanceof UnsupportedNamespace
       ) {
         res.status(errCode).json({

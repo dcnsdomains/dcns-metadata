@@ -51,7 +51,7 @@ export default function getNetwork(network: string): any {
       NETWORKISH = {
         name: "smartbch",
         chainId: 10000,
-        ensAddress: "0x781420e2C228821Eed99403470AC62C9cc4C0Cf7"
+        ensAddress: "0x3596f09d70B454049Ce11390A3eeBfBf6a9e3945"
       }
       break;
     case NETWORK["SMARTBCH-AMBER"]:
