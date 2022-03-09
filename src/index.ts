@@ -11,7 +11,7 @@ const setCacheHeader = function (
   res: Response,
   next: NextFunction
 ) {
-  const period = 60 * 60;
+  const period = 60 * 10;
   res.set('Cache-control', `public, max-age=${period}`);
 
   next();
