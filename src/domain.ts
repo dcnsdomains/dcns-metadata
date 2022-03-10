@@ -11,7 +11,7 @@ import { Version } from './base';
 import { SERVER_URL } from './config';
 
 const eth =
-  '0x93cdeb708b7545dc668eb9280176169d1c33cfd8ed6f04690a0bcc88a93fc4ae';
+  '0x4062ae9e99543fadaf6946b98c6f12538a99834a89521ef85301d7d91e281c8d';
 const IMAGE_KEY = 'domains.ens.nft.image';
 
 export async function getDomain(
