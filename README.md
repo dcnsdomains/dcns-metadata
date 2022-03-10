@@ -13,8 +13,8 @@
 ### Request
 - __network:__ Name of the chain to query for. (smartbch | smartbch-amber | ...)
 - __contactAddress:__ accepts contractAddress of the NFT which represented by the tokenId
-- __NFT v1 - tokenId:__ accepts labelhash of ENS name in both hex and int format
-- __NFT v2 - tokenId:__ accepts namehash of ENS name in both hex and int format
+- __NFT v1 - tokenId:__ accepts labelhash of LNS name in both hex and int format
+- __NFT v2 - tokenId:__ accepts namehash of LNS name in both hex and int format
 
 ```
 /{networkName}/{contractAddress}/{tokenId}
@@ -29,7 +29,7 @@ https://metadata.bch.domains/smartbch/0x57f1887a8BF19b14fC0dF6Fd9B2acc9Af147eA85
 ```json
 {
   "name": "pat.eth",
-  "description": "pat.bch, an ENS name.",
+  "description": "pat.bch, an LNS name.",
   "attributes": [
     {
       "trait_type": "Created Date",
@@ -100,8 +100,8 @@ yarn test:cov
 | HOST | Host (ip/domain) address of the running service | localhost | - | No |
 | ENV | Project scope | local | local/prod |
 | INAMEWRAPPER | InterfaceId of NameWrapper Contract | 0x1aa28a1e | - |
-| ADDRESS_ETH_REGISTRAR | Ethereum address of ENSBaseRegistrar Contract | 0x57f1887a8BF19b14fC0dF6Fd9B2acc9Af147eA85 | - |
-| ADDRESS_NAME_WRAPPER | Ethereum address of NameWrapper Contract | 0x4D83cea620E3864F912046b73bB3a6c04Da75990 | - |
+| ADDRESS_ETH_REGISTRAR | smartBCH address of ENSBaseRegistrar Contract | 0x57f1887a8BF19b14fC0dF6Fd9B2acc9Af147eA85 | - |
+| ADDRESS_NAME_WRAPPER | smartBCH address of NameWrapper Contract | 0x4D83cea620E3864F912046b73bB3a6c04Da75990 | - |
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
