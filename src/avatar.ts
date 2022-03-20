@@ -7,6 +7,7 @@ import { CID }                          from 'multiformats/cid';
 import fetch                            from 'node-fetch';
 import { BaseError }                    from './base';
 import { INFURA_API_KEY, IPFS_GATEWAY, IPNS_GATEWAY, SERVER_URL } from './config';
+import { getNetworkById } from './network';
 
 const window = new JSDOM('').window;
 const DOMPurify = createDOMPurify(window as any);
@@ -160,11 +161,8 @@ export class AvatarMetadata {
     contract_address,
     namespace,
   }: HostMeta) {
-    const owner = await this.defaultProvider.resolveName(this.uri);
-    const _provider = new ethers.providers.InfuraProvider(
-      chain_id,
-      INFURA_API_KEY
-    );
+    const { provider: _provider } = getNetworkById(chain_id!);
+    const owner = await _provider.resolveName(this.uri);
 
     const tokenURI = await this._retrieveTokenURI(
       _provider,

@@ -15,6 +15,21 @@ const NETWORK = {
   "SMARTBCH-AMBER": 'smartbch-amber',
 };
 
+const NETWORK_ID: any = {
+  1: 'mainnet',
+  3: 'ropsten',
+  4: 'rinkeby',
+  5: 'goerli',
+  1337: 'local',
+  10000: 'smartbch',
+  10001: 'smartbch-amber',
+};
+
+export function getNetworkById(networkId: number): any {
+  const network: string = NETWORK_ID[networkId];
+  return getNetwork(network);
+}
+
 export default function getNetwork(network: string): any {
   // currently subgraphs used under this function are outdated,
   // we will have namewrapper support and more attributes when latest subgraph goes to production
