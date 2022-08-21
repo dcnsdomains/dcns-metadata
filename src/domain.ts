@@ -10,9 +10,18 @@ import { getAvatarImage } from './avatar';
 import { Version } from './base';
 import { SERVER_URL } from './config';
 
-const eth =
-  '0x4062ae9e99543fadaf6946b98c6f12538a99834a89521ef85301d7d91e281c8d';
 const IMAGE_KEY = 'domains.ens.nft.image';
+
+const ETH_NAMEHASH = '0x93cdeb708b7545dc668eb9280176169d1c33cfd8ed6f04690a0bcc88a93fc4ae';
+const BCH_NAMEHASH = '0x4062ae9e99543fadaf6946b98c6f12538a99834a89521ef85301d7d91e281c8d';
+const DOGE_NAMEHASH = '0x294e2d893ce499d687a17323b05880c4cf91b7fcf595374ecf3f9eb52aff9398';
+
+const networkRootLabelHash: any = {
+  "smartbch": BCH_NAMEHASH,
+  "smartbch-amber": BCH_NAMEHASH,
+  "dogechain": DOGE_NAMEHASH,
+  "dogechain-testnet": DOGE_NAMEHASH
+}
 
 export async function getDomain(
   provider: any,
@@ -34,8 +43,9 @@ export async function getDomain(
     intId = ethers.BigNumber.from(tokenId).toString();
     hexId = tokenId;
   }
+  const labelHash = networkRootLabelHash[networkName] || ETH_NAMEHASH;
   const queryDocument: any =
-    version !== Version.v2 ? GET_DOMAINS_BY_LABELHASH : GET_DOMAINS;
+    version !== Version.v2 ? GET_DOMAINS_BY_LABELHASH(labelHash) : GET_DOMAINS;
   const result = await request(SUBGRAPH_URL, queryDocument, { tokenId: hexId });
   const domain = version !== Version.v2 ? result.domains[0] : result.domain;
   const { name, labelhash, createdAt, parent, resolver } = domain;
@@ -93,7 +103,7 @@ export async function getDomain(
   }
 
   async function requestAttributes() {
-    if (true || parent.id === eth) {
+    if (true || parent.id === BCH_NAMEHASH) {
       const { registrations } = await request(SUBGRAPH_URL, GET_REGISTRATIONS, {
         labelhash,
       });

@@ -1,9 +1,5 @@
 import { gql } from 'graphql-request';
 
-const ETH_NAMEHASH =
-  // '0x93cdeb708b7545dc668eb9280176169d1c33cfd8ed6f04690a0bcc88a93fc4ae';
-  '0x4062ae9e99543fadaf6946b98c6f12538a99834a89521ef85301d7d91e281c8d';
-
 export const GET_DOMAINS = gql`
   query getDomains($tokenId: String) {
     domain(id: $tokenId) {
@@ -20,11 +16,11 @@ export const GET_DOMAINS = gql`
   }
 `;
 
-export const GET_DOMAINS_BY_LABELHASH = gql`
+export const GET_DOMAINS_BY_LABELHASH = (tldNamehash: string) => gql`
   query getDomains($tokenId: String) {
     domains(
       where: {
-        parent: "${ETH_NAMEHASH}",
+        parent: "${tldNamehash}",
         labelhash: $tokenId
       }
     ) {
