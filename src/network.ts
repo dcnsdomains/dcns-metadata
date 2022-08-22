@@ -88,7 +88,7 @@ export default function getNetwork(network: string): any {
       NETWORKISH = {
         name: "dogechain",
         chainId: 2000,
-        ensAddress: "0x08850859CE6B62A39918c8B806AfbE3442fE7b0b"
+        ensAddress: "0x834C46666c1dE7367B252682B9ABAb458DD333bf"
       }
       break;
     case NETWORK['DOGECHAIN-TESTNET']:
