@@ -57,6 +57,7 @@ export async function getDomain(
     created_date: createdAt,
     tokenId: hexId,
     version,
+    networkId: provider._network.chainId
   });
 
   async function requestAvatar() {

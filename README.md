@@ -29,6 +29,7 @@ https://metadata.bch.domains/dogechain-testnet/0x07D127d14Bbd2af65fd86537913acAd
 
 https://metadata.bch.domains/dogechain/0x0aF878360B48b5f51F4e919f3cC1EC08B78627ad/0x3e603807758134653f4c858cec61078722f6544783a94e8f5b1298df89d293ae
 
+https://metadata.bch.domains/dogechain/0x0aF878360B48b5f51F4e919f3cC1EC08B78627ad/0x8f77c8c6fd421d301c5f91568d08c991f5a87c5f04cc3f0a4176f9e9b14c3854
 ### Response (example)
 
 ```json
