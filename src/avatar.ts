@@ -8,6 +8,7 @@ import fetch                            from 'node-fetch';
 import { BaseError }                    from './base';
 import { INFURA_API_KEY, IPFS_GATEWAY, IPNS_GATEWAY, SERVER_URL } from './config';
 import { getNetworkById } from './network';
+import { Metadata } from './metadata';
 
 const window = new JSDOM('').window;
 const DOMPurify = createDOMPurify(window as any);
@@ -60,6 +61,10 @@ export interface AvatarMetadata {
 export class AvatarMetadata {
   defaultProvider: any;
   constructor(provider: any, uri: string) {
+    if (Metadata._getCharLength(uri) != [...uri].length) {
+      throw new RetrieveURIFailed(`Invalid domain name: ${uri}`)
+    }
+
     this.defaultProvider = provider;
     this.uri = uri;
   }

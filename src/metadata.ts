@@ -1,3 +1,4 @@
+import { RetrieveURIFailed } from './avatar';
 import { Version }           from './base';
 import { 
   CANVAS_FONT_PATH, 
@@ -69,6 +70,10 @@ export class Metadata {
     version,
     networkId,
   }: MetadataInit) {
+    if (Metadata._getCharLength(name) != [...name].length) {
+      throw new RetrieveURIFailed(`Invalid DNS name: ${name}`)
+    }
+
     const is_valid = validate(name);
     this.networkId = networkId;
     this.is_normalized = is_valid && this._checkNormalized(name);

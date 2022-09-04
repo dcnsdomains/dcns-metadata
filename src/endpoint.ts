@@ -50,7 +50,8 @@ export default function (app: Express) {
         let errCode = (error?.code && Number(error.code)) || 500;
         if (
           error instanceof FetchError ||
-          error instanceof ContractMismatchError
+          error instanceof ContractMismatchError ||
+          error instanceof RetrieveURIFailed
         ) {
           if (errCode !== 404) {
             res.status(errCode).json({
@@ -109,7 +110,8 @@ export default function (app: Express) {
       } catch (error) {
         if (
           error instanceof FetchError ||
-          error instanceof ContractMismatchError
+          error instanceof ContractMismatchError ||
+          error instanceof RetrieveURIFailed
         ) {
           res.status(404).json({
             message: error.message,
