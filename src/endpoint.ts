@@ -13,6 +13,7 @@ import {
 } from './avatar';
 import getNetwork, { UnsupportedNetwork } from './network';
 import { rasterize } from './rasterize';
+import { Metadata } from './metadata';
 
 export default function (app: Express) {
   app.get('/', (_req, res) => {
@@ -243,5 +244,15 @@ export default function (app: Express) {
         });
       }
     }
+  });
+
+  app.get('/:networkName/validate/:name', async function (req, res) {
+    // #swagger.description = 'Validate ENS name'
+    // #swagger.parameters['networkName'] = { description: 'Name of the chain to query for. (mainnet|rinkeby|ropsten|goerli...)' }
+    // #swagger.parameters['name'] = { description: 'ENS name' }
+    const { name, networkName } = req.params;
+    res.status(200).json({
+      valid: Metadata._getCharLength(name) == [...name].length
+    });
   });
 }
