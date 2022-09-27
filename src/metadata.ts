@@ -44,6 +44,7 @@ export interface MetadataInit {
   tokenId         : string;
   version         : Version;
   networkId       : number;
+  contractAddress : string;
 }
 
 export interface Metadata {
@@ -57,7 +58,8 @@ export interface Metadata {
   mimeType?        : string;
   url?             : string | null;
   version          : Version;
-  networkId       : number;
+  networkId        : number;
+  contractAddress  : string;
 }
 
 export class Metadata {
@@ -69,6 +71,7 @@ export class Metadata {
     tokenId,
     version,
     networkId,
+    contractAddress
   }: MetadataInit) {
     if (Metadata._getCharLength(name) != [...name].length) {
       throw new RetrieveURIFailed(`Invalid DNS name: ${name}`)
@@ -76,6 +79,7 @@ export class Metadata {
 
     const is_valid = validate(name);
     this.networkId = networkId;
+    this.contractAddress = contractAddress;
     this.is_normalized = is_valid && this._checkNormalized(name);
     this.name = this.is_normalized
       ? name
@@ -247,7 +251,7 @@ https://en.wikipedia.org/wiki/IDN_homograph_attack';
     domain: string,
     version: Version
   ) {
-    return createSVGfromTemplate(this.networkId, {
+    return createSVGfromTemplate(this.contractAddress, {
       backgroundImage: this.background_image,
       domain,
       domainFontSize,

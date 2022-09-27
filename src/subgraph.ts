@@ -33,6 +33,7 @@ export const GET_DOMAINS_BY_LABELHASH = (tldNamehash: string) => gql`
       resolver {
         texts
       }
+      createdAt
     }
   }
 `;

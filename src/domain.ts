@@ -74,7 +74,8 @@ export async function getDomain(
     created_date: createdAt,
     tokenId: hexId,
     version,
-    networkId: provider._network.chainId
+    networkId: provider._network.chainId,
+    contractAddress,
   });
 
   async function requestAvatar() {
@@ -141,5 +142,8 @@ export async function getDomain(
     }
   }
   await Promise.all([requestMedia(), requestAttributes()]);
+
+  delete (metadata as any).contractAddress;
+  delete (metadata as any).networkId;
   return metadata;
 }
