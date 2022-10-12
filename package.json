@@ -1,5 +1,5 @@
 {
-  "name": "ens-metadata-service",
+  "name": "dcns-metadata-service",
   "version": "1.0.0",
   "main": "index.js",
   "author": "Makoto Inoue <2630+makoto@users.noreply.github.com>",
@@ -31,8 +31,7 @@
     "build": "tsc --project ./ && cpx 'src/assets/**' 'dist/assets'",
     "dev": "ENV=local ts-node-dev --inspect -- src/index.ts",
     "start": "node dist/index.js",
-    "deploy": "ENV=prod yarn build && gcloud app deploy --project=ens-metadata-service",
-    "deploy:test": "ENV=prod yarn build && gcloud app deploy --no-promote --project=ens-metadata-service",
+    "deploy": "ENV=prod yarn build && gcloud app deploy --project=dcnsdomains",
     "test": "ava --serial",
     "test:cov": "nyc --reporter=json --reporter=text ava --serial",
     "docgen": "node docgen.js"

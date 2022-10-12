@@ -215,6 +215,33 @@
           }
         }
       }
+    },
+    "/{networkName}/validate/{name}": {
+      "get": {
+        "tags": [],
+        "description": "Validate ENS name",
+        "parameters": [
+          {
+            "name": "networkName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Name of the chain to query for. (mainnet|rinkeby|ropsten|goerli...)"
+          },
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ENS name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "definitions": {}

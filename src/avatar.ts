@@ -6,7 +6,7 @@ import isSVG                            from 'is-svg';
 import { CID }                          from 'multiformats/cid';
 import fetch                            from 'node-fetch';
 import { BaseError }                    from './base';
-import { INFURA_API_KEY, IPFS_GATEWAY, IPNS_GATEWAY, SERVER_URL } from './config';
+import { IPFS_GATEWAY, IPNS_GATEWAY, SERVER_URL } from './config';
 import { getNetworkById } from './network';
 import { Metadata } from './metadata';
 

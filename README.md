@@ -1,4 +1,4 @@
-# lns-metadata-service
+# DcNS-metadata-service
 
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
@@ -13,8 +13,8 @@
 ### Request
 - __network:__ Name of the chain to query for. (smartbch | smartbch-amber | ...)
 - __contactAddress:__ accepts contractAddress of the NFT which represented by the tokenId
-- __NFT v1 - tokenId:__ accepts labelhash of LNS name in both hex and int format
-- __NFT v2 - tokenId:__ accepts namehash of LNS name in both hex and int format
+- __NFT v1 - tokenId:__ accepts labelhash of DcNS name in both hex and int format
+- __NFT v2 - tokenId:__ accepts namehash of DcNS name in both hex and int format
 
 ```
 /{networkName}/{contractAddress}/{tokenId}
@@ -39,7 +39,7 @@ https://metadata.bch.domains/dogechain/0xe83c2021550b17169bd2d608c51ba6a2bea0f35
 ```json
 {
   "name": "pat.eth",
-  "description": "pat.bch, an LNS name.",
+  "description": "pat.bch, an DcNS name.",
   "attributes": [
     {
       "trait_type": "Created Date",
@@ -74,8 +74,8 @@ More info and list of all endpoints: https://metadata.bch.domains/docs
 ## How to setup
 
 ```
-git clone https://github.com/bchdomains/lns-metadata-service.git
-cd lns-metadata-service
+git clone https://github.com/bchdomains/DcNS-metadata-service.git
+cd DcNS-metadata-service
 cp .env.org .env // Fill in Vars
 yarn
 yarn dev
@@ -116,15 +116,15 @@ yarn test:cov
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/bchdomains/lns-metadata-service.svg?style=for-the-badge
-[contributors-url]: https://github.com/bchdomains/lns-metadata-service/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/bchdomains/lns-metadata-service.svg?style=for-the-badge
-[forks-url]: https://github.com/mdtanrikulu/bchdomains/lns-metadata-service/members
-[stars-shield]: https://img.shields.io/github/stars/bchdomains/lns-metadata-service.svg?style=for-the-badge
-[stars-url]: https://github.com/bchdomains/lns-metadata-service/stargazers
-[issues-shield]: https://img.shields.io/github/issues/bchdomains/lns-metadata-service.svg?style=for-the-badge
-[issues-url]: https://github.com/bchdomains/lns-metadata-service/issues
-[license-shield]: https://img.shields.io/github/license/bchdomains/lns-metadata-service.svg?style=for-the-badge
-[license-url]: https://github.com/bchdomains/lns-metadata-service/blob/master/LICENSE
-[travis-shield]: https://img.shields.io/travis/com/bchdomains/lns-metadata-service/master?style=for-the-badge
-[travis-url]: https://travis-ci.com/github/bchdomains/lns-metadata-service
+[contributors-shield]: https://img.shields.io/github/contributors/bchdomains/DcNS-metadata-service.svg?style=for-the-badge
+[contributors-url]: https://github.com/bchdomains/DcNS-metadata-service/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/bchdomains/DcNS-metadata-service.svg?style=for-the-badge
+[forks-url]: https://github.com/mdtanrikulu/bchdomains/DcNS-metadata-service/members
+[stars-shield]: https://img.shields.io/github/stars/bchdomains/DcNS-metadata-service.svg?style=for-the-badge
+[stars-url]: https://github.com/bchdomains/DcNS-metadata-service/stargazers
+[issues-shield]: https://img.shields.io/github/issues/bchdomains/DcNS-metadata-service.svg?style=for-the-badge
+[issues-url]: https://github.com/bchdomains/DcNS-metadata-service/issues
+[license-shield]: https://img.shields.io/github/license/bchdomains/DcNS-metadata-service.svg?style=for-the-badge
+[license-url]: https://github.com/bchdomains/DcNS-metadata-service/blob/master/LICENSE
+[travis-shield]: https://img.shields.io/travis/com/bchdomains/DcNS-metadata-service/master?style=for-the-badge
+[travis-url]: https://travis-ci.com/github/bchdomains/DcNS-metadata-service
