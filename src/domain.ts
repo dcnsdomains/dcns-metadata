@@ -1,7 +1,6 @@
 import { request } from 'graphql-request';
 import { ethers } from 'ethers';
 import {
-  GET_REGISTRATIONS,
   GET_DOMAINS,
   GET_DOMAINS_BY_LABELHASH,
 } from './subgraph';
@@ -13,10 +12,6 @@ import { SERVER_URL } from './config';
 const IMAGE_KEY = 'domains.ens.nft.image';
 
 const DC_NAMEHASH = '0x458f3086a527467f29a17c336f3a63f5e1207a370e449006f79291e42b342da7';
-
-const networkRootLabelHash: any = {
-  "dogechain": DC_NAMEHASH,
-}
 
 const contractAddressToLabelHashMap: any = {
   // dogechain
