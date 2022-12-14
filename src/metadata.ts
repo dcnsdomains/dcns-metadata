@@ -218,7 +218,7 @@ https://en.wikipedia.org/wiki/IDN_homograph_attack';
   }
 
   static _getCharLength(name: string): number {
-    return [...new Intl.Segmenter().segment(name)].length;
+    return name.length;
   }
 
   static _getFontSize(name: string): number {
