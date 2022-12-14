@@ -12,9 +12,9 @@ const endpointsFiles = ['./src/endpoint.ts', './src/metadata.ts'];
 const doc = {
   info: {
     version: '0.0.1-alpha.0',
-    title: 'ENS Metadata Service',
-    description: 'Set of endpoints to query ENS metadata and more',
-    contact: "contact@ens.domains",
+    title: 'DcNS Metadata Service',
+    description: 'Set of endpoints to query DcNS metadata and more',
+    contact: "contact@dc.domains",
     license: "MIT License",
     x_logo: {
         "url": "./src/assets/logo.svg",
