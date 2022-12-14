@@ -13,9 +13,8 @@ const CANVAS_FALLBACK_FONT_PATH = path.join(FONT_FOLDER, 'DejaVuSans-Bold.ttf');
 const IPFS_GATEWAY = 'https://ipfs.io/ipfs/';
 const IPNS_GATEWAY = 'https://ipfs.io/ipns/';
 
-const SERVER_URL =
-  ENV === 'local' ? `http://localhost:${PORT}` : `https://${HOST}`;
-const ENS_APP_URL = process.env.ENS_APP_URL || "https://app.ens.domains"
+const SERVER_URL = ENV === 'local' ? `http://localhost:${PORT}` : `https://${HOST}`;
+const ENS_APP_URL = process.env.ENS_APP_URL || 'https://app.dc.domains'
 
 export {
   CANVAS_FONT_PATH,
