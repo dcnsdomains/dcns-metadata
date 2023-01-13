@@ -49,15 +49,15 @@ https://metadata.dc.domains/dogechain/0xe83c2021550b17169bd2d608c51ba6a2bea0f350
   "name_length": 4,
   "short_name": null,
   "length": 0,
-  "url": "https://app.bch.domains/name/pat.bch",
+  "url": "https://app.dc.domains/name/pat.bch",
   "version": 0,
-  "background_image": "https://metadata.bch.domains/smartbch/avatar/pat.bch",
-  "image_url": "https://metadata.bch.domains/mainnet/0x57f1887a8BF19b14fC0dF6Fd9B2acc9Af147eA85/0x5d5727cb0fb76e4944eafb88ec9a3cf0b3c9025a4b2f947729137c5d7f84f68f/image"
+  "background_image": "https://metadata.dc.domains/smartbch/avatar/pat.bch",
+  "image_url": "https://metadata.dc.domains/mainnet/0x57f1887a8BF19b14fC0dF6Fd9B2acc9Af147eA85/0x5d5727cb0fb76e4944eafb88ec9a3cf0b3c9025a4b2f947729137c5d7f84f68f/image"
 }
 
 ```
 
-More info and list of all endpoints: https://metadata.bch.domains/docs
+More info and list of all endpoints: https://metadata.dc.domains/docs
 
 
 ## How to setup
