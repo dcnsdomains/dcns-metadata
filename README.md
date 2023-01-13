@@ -63,8 +63,8 @@ More info and list of all endpoints: https://metadata.dc.domains/docs
 ## How to setup
 
 ```
-git clone https://github.com/bchdomains/DcNS-metadata-service.git
-cd DcNS-metadata-service
+git clone https://github.com/dcnsdomains/metadata-service.git
+cd metadata-service
 cp .env.org .env // Fill in Vars
 yarn
 yarn dev
