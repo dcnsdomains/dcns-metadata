@@ -15,10 +15,7 @@ const DC_NAMEHASH = '0x458f3086a527467f29a17c336f3a63f5e1207a370e449006f79291e42
 
 const contractAddressToLabelHashMap: any = {
   // dogechain
-  "0xe83c2021550b17169bd2d608c51ba6a2bea0f350": DC_NAMEHASH,   // .dc
-
-  // dogechain testnet
-  "0x1070aaf6115ff3f8d6307f39c7a7a3fac622879c": DC_NAMEHASH,   // .dc
+  "0xfCB8e7dA8E5D0549CfC0923eCAa69616b63F0822": DC_NAMEHASH,   // .dc
 }
 
 export async function getDomain(
