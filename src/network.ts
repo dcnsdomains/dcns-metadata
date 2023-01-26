@@ -16,12 +16,12 @@ export function getNetworkById(networkId: number): any {
 export default function getNetwork(network: string): any {
   // currently subgraphs used under this function are outdated,
   // we will have namewrapper support and more attributes when latest subgraph goes to production
-  const SUBGRAPH_URL = 'https://graph.bch.domains/subgraphs/name/graphprotocol/ens-dogechain';
-  const INFURA_URL = `https://rpc.yodeswap.dog`;
+  const SUBGRAPH_URL = 'https://graph-node.dogechain.dog/subgraphs/name/dcnsdomains/dcns'
+  const INFURA_URL = 'https://dogechain.ankr.com'
   const NETWORKISH = {
     name: "dogechain",
     chainId: 2000,
-    ensAddress: "0x834C46666c1dE7367B252682B9ABAb458DD333bf"
+    ensAddress: "0x8582C4B94D3815CAcF0ebFeAc0Ac30c340Fb8056"
   }
   const provider = new ethers.providers.StaticJsonRpcProvider(INFURA_URL, NETWORKISH);
   return { INFURA_URL, SUBGRAPH_URL, provider };
