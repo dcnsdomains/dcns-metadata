@@ -1,19 +1,9 @@
 import { Express } from 'express';
 import { FetchError } from 'node-fetch';
 import { getDomain } from './domain';
-import { checkContract, ContractMismatchError } from './contract';
-import {
-  getAvatarImage,
-  getAvatarMeta,
-  NFTURIParsingError,
-  ResolverNotFound,
-  RetrieveURIFailed,
-  TextRecordNotFound,
-  UnsupportedNamespace,
-} from './avatar';
-import getNetwork, { UnsupportedNetwork } from './network';
-import { rasterize } from './rasterize';
-import { Metadata } from './metadata';
+import { UnsupportedNetwork } from '@dcnsdomains/function'
+import getProvider, { NETWORK_NAME } from '@dcnsdomains/function/dist/provider';
+import { ethers } from 'ethers';
 
 export default function (app: Express) {
   app.get('/', (_req, res) => {
@@ -27,18 +17,17 @@ export default function (app: Express) {
       // #swagger.parameters['networkName'] = { description: 'Name of the chain to query for. (mainnet|rinkeby|ropsten|goerli...)' }
       // #swagger.parameters['{}'] = { name: 'contractAddress', description: 'Contract address which stores the NFT indicated by the tokenId' }
       // #swagger.parameters['tokenId'] = { description: 'Namehash(v1) /Labelhash(v2) of your ENS name.\n\nMore: https://docs.ens.domains/contract-api-reference/name-processing#hashing-names' }
-      const { contractAddress, networkName, tokenId } = req.params;
+      // const { contractAddress, network, tokenId } = req.params;
+      const contractAddress = req.params.contractAddress as string
+      const networkName = req.params.networkName as NETWORK_NAME
+      const tokenId = req.params.tokenId
       try {
-        const { provider, SUBGRAPH_URL } = getNetwork(networkName);
-        const version = await checkContract(provider, contractAddress, tokenId);
+        const provider = getProvider(networkName)
         const result = await getDomain(
           provider,
           networkName,
-          SUBGRAPH_URL,
           contractAddress,
           tokenId,
-          version,
-          false
         ) as any;
         /* #swagger.responses[200] = { 
                description: 'Metadata object' 
@@ -49,11 +38,7 @@ export default function (app: Express) {
       } catch (error: any) {
         console.log('error', error);
         let errCode = (error?.code && Number(error.code)) || 500;
-        if (
-          error instanceof FetchError ||
-          error instanceof ContractMismatchError ||
-          error instanceof RetrieveURIFailed
-        ) {
+        if (error instanceof FetchError) {
           if (errCode !== 404) {
             res.status(errCode).json({
               message: error.message,
@@ -79,17 +64,16 @@ export default function (app: Express) {
       // #swagger.parameters['networkName'] = { description: 'Name of the chain to query for. (mainnet|rinkeby|ropsten|goerli...)' }
       // #swagger.parameters['contractAddress'] = { description: 'Contract address which stores the NFT indicated by the tokenId' }
       // #swagger.parameters['tokenId'] = { description: 'Namehash(v1) /Labelhash(v2) of your ENS name.\n\nMore: https://docs.ens.domains/contract-api-reference/name-processing#hashing-names' }
-      const { contractAddress, networkName, tokenId } = req.params;
+      const contractAddress = req.params.contractAddress as string
+      const networkName = req.params.networkName as NETWORK_NAME
+      const tokenId = req.params.tokenId
       try {
-        const { provider, SUBGRAPH_URL } = getNetwork(networkName);
-        const version = await checkContract(provider, contractAddress, tokenId);
+        const provider = getProvider(networkName)
         const result = await getDomain(
           provider,
           networkName,
-          SUBGRAPH_URL,
           contractAddress,
           tokenId,
-          version
         );
         if (result.image_url) {
           const base64 = result.image_url.replace(
@@ -109,13 +93,9 @@ export default function (app: Express) {
                description: 'Image file' 
         } */
       } catch (error) {
-        if (
-          error instanceof FetchError ||
-          error instanceof ContractMismatchError ||
-          error instanceof RetrieveURIFailed
-        ) {
+        if (error instanceof FetchError) {
           res.status(404).json({
-            message: error.message,
+            message: 'No results found.',
           });
           return;
         }
@@ -130,129 +110,4 @@ export default function (app: Express) {
       }
     }
   );
-
-  app.get(
-    '/:networkName/:contractAddress(0x[a-fA-F0-9]{40})/:tokenId/rasterize',
-    /* istanbul ignore next */
-    async function (req, res) {
-      // #swagger.description = 'ENS NFT image rasterization endpoint'
-      // #swagger.parameters['networkName'] = { description: 'Name of the chain to query for. (mainnet|rinkeby|ropsten|goerli...)' }
-      // #swagger.parameters['contractAddress'] = { description: 'Contract address which stores the NFT indicated by the tokenId' }
-      // #swagger.parameters['tokenId'] = { description: 'Namehash(v1) /Labelhash(v2) of your ENS name.\n\nMore: https://docs.ens.domains/contract-api-reference/name-processing#hashing-names' }
-      const { contractAddress, networkName, tokenId } = req.params;
-      try {
-        const raster = await rasterize(contractAddress, networkName, tokenId);
-          const base64 = raster.replace(
-            'data:image/png;base64,',
-            ''
-          );
-          const buffer = Buffer.from(base64, 'base64');
-          res.writeHead(200, {
-            'Content-Type': 'image/png',
-            'Content-Length': buffer.length,
-          });
-          res.end(buffer);
-      } catch (error) {
-        res.status(500).json({
-          message: error,
-        });
-      }
-    }
-  );
-
-  app.get('/:networkName/avatar/:name/meta', async function (req, res) {
-    // #swagger.description = 'ENS avatar metadata'
-    // #swagger.parameters['networkName'] = { description: 'Name of the chain to query for. (mainnet|rinkeby|ropsten|goerli...)' }
-    // #swagger.parameters['name'] = { description: 'ENS name' }
-    const { name, networkName } = req.params;
-    try {
-      const { provider } = getNetwork(networkName);
-      const meta = await getAvatarMeta(provider, name, networkName);
-      if (meta) {
-        res.status(200).json(meta);
-      } else {
-        res.status(404).json({
-          message: 'No results found.',
-        });
-      }
-    } catch (error: any) {
-      if (error instanceof ResolverNotFound ||
-          error instanceof TextRecordNotFound) {
-        res.status(404).json({
-          message: error.message,
-        });
-
-        return;
-      }
-
-      const errCode = (error?.code && Number(error.code)) || 500;
-      if (
-        error instanceof FetchError ||
-        error instanceof NFTURIParsingError ||
-        error instanceof RetrieveURIFailed ||
-        error instanceof UnsupportedNamespace
-      ) {
-        res.status(errCode).json({
-          message: error.message,
-        });
-        return;
-      }
-      if (error instanceof UnsupportedNetwork) {
-        res.status(501).json({
-          message: error.message,
-        });
-      }
-    }
-  });
-
-  app.get('/:networkName/avatar/:name', async function (req, res) {
-    // #swagger.description = 'ENS avatar record'
-    // #swagger.parameters['networkName'] = { description: 'Name of the chain to query for. (mainnet|rinkeby|ropsten|goerli...)' }
-    // #swagger.parameters['name'] = { description: 'ENS name' }
-    const { name, networkName } = req.params;
-    try {
-      const { provider } = getNetwork(networkName);
-      const [buffer, mimeType] = await getAvatarImage(provider, name);
-      if (buffer) {
-        res.writeHead(200, {
-          'Content-Type': mimeType,
-          'Content-Length': buffer.length,
-        });
-        res.end(buffer);
-      }
-      res.status(404).json({
-        message: 'No results found.',
-      });
-    } catch (error: any) {
-      const errCode = (error?.code && Number(error.code)) || 500;
-      if (
-        error instanceof FetchError ||
-        error instanceof NFTURIParsingError ||
-        error instanceof ResolverNotFound ||
-        error instanceof RetrieveURIFailed ||
-        error instanceof TextRecordNotFound ||
-        error instanceof UnsupportedNamespace
-      ) {
-        res.status(errCode).json({
-          message: error.message,
-        });
-        return;
-      }
-      if (error instanceof UnsupportedNetwork) {
-        res.status(501).json({
-          message: error.message,
-        });
-      }
-    }
-  });
-
-  app.get('/:networkName/validate/:name', async function (req, res) {
-    // #swagger.description = 'Validate ENS name'
-    // #swagger.parameters['networkName'] = { description: 'Name of the chain to query for. (mainnet|rinkeby|ropsten|goerli...)' }
-    // #swagger.parameters['name'] = { description: 'ENS name' }
-    const { name, networkName } = req.params;
-    res.status(200).json({
-      valid: Metadata._getCharLength(name) == [...name].length
-    });
-  });
 }
