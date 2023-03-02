@@ -14,6 +14,7 @@
     "docgen": "node docgen.js"
   },
   "dependencies": {
+    "@dcnsdomains/function": "^0.0.5",
     "@ensdomains/ens-validation": "^0.1.0",
     "@ensdomains/eth-ens-namehash": "^2.0.15",
     "@types/lodash": "^4.14.170",
