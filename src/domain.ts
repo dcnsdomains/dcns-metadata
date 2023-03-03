@@ -9,7 +9,7 @@ export async function getDomain(
   networkName: NETWORK_NAME,
   contractAddress: string,
   tokenId: string,
-  loadImages: boolean = true
+  loadImages: boolean = false
 ): Promise<Metadata> {
   const registrar = setupRegistrar(networkName, provider)
   const hoge = Number.parseFloat(tokenId)
