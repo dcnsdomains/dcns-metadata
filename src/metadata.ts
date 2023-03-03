@@ -1,5 +1,3 @@
-import { RetrieveURIFailed } from './avatar';
-import { Version }           from './base';
 import { 
   CANVAS_FONT_PATH, 
   CANVAS_EMOJI_FONT_PATH, 
@@ -38,11 +36,7 @@ declare namespace Intl {
 export interface MetadataInit {
   name            : string;
   description?    : string;
-  created_date    : number;
-  registered_date?: Date | null;
-  expiration_date?: Date | null;
   tokenId         : string;
-  version         : Version;
   networkId       : number;
   contractAddress : string;
 }
@@ -50,14 +44,11 @@ export interface MetadataInit {
 export interface Metadata {
   name             : string;
   description?     : string;
-  attributes       : object[];
   name_length?     : number;
   image_url?       : string;
   is_normalized    : boolean;
   background_image?: string;
-  mimeType?        : string;
   url?             : string | null;
-  version          : Version;
   networkId        : number;
   contractAddress  : string;
 }
@@ -67,16 +58,10 @@ export class Metadata {
   constructor({
     name,
     description,
-    created_date,
     tokenId,
-    version,
     networkId,
     contractAddress
   }: MetadataInit) {
-    if (Metadata._getCharLength(name) != [...name].length) {
-      throw new RetrieveURIFailed(`Invalid DNS name: ${name}`)
-    }
-
     const is_valid = validate(name);
     this.networkId = networkId;
     this.contractAddress = contractAddress;
@@ -101,27 +86,10 @@ Also, traditional Chinese characters can look identical or very similar to \
 simplified variants. For more information: \
 https://en.wikipedia.org/wiki/IDN_homograph_attack';
     }
-    this.attributes = [
-      {
-        trait_type: 'Created Date',
-        display_type: 'date',
-        value: created_date * 1000,
-      },
-    ];
     this.name_length = this._labelLength(name);
-    this.addAttribute({
-      trait_type: 'Length',
-      display_type: 'number',
-      value: this.name_length,
-    });
     this.url = this.is_normalized
       ? `${ENS_APP_URL}/name/${name}`
       : null;
-    this.version = version;
-  }
-
-  addAttribute(attribute: object) {
-    this.attributes.push(attribute);
   }
 
   setImage(image_url: string) {
@@ -131,7 +99,6 @@ https://en.wikipedia.org/wiki/IDN_homograph_attack';
   setBackground(base64: string, mimeType?: string) {
     if (this.is_normalized) {
       this.background_image = base64;
-      this.mimeType = mimeType;
     }
   }
 
@@ -171,8 +138,6 @@ https://en.wikipedia.org/wiki/IDN_homograph_attack';
     }
     const svg = this._generateByVersion(
       domainFontSize,
-      subdomainText,
-      isSubdomain,
       domain
     );
     try {
@@ -194,15 +159,10 @@ https://en.wikipedia.org/wiki/IDN_homograph_attack';
   private _generateByVersion(
     ...args: [
       domainFontSize: number,
-      subdomainText: string | undefined,
-      isSubdomain: boolean,
       domain: string
     ]
   ): string {
-    if (!Object.values(Version).includes(this.version)) {
-      throw Error(`Unknown Metadata version: ${this.version}`);
-    }
-    return this._renderSVG.apply(this, [...args, this.version]);
+    return this._renderSVG.apply(this, [...args])
   }
 
   static _b64EncodeUnicode(str: string) {
@@ -246,20 +206,13 @@ https://en.wikipedia.org/wiki/IDN_homograph_attack';
 
   private _renderSVG(
     domainFontSize: number,
-    subdomainText: string | undefined,
-    isSubdomain: boolean,
     domain: string,
-    version: Version
   ) {
     return createSVGfromTemplate(this.contractAddress, {
       backgroundImage: this.background_image,
       domain,
       domainFontSize,
       isNormalized: this.is_normalized,
-      isSubdomain,
-      mimeType: this.mimeType,
-      subdomainText,
-      version,
     });
   }
 }
